@@ -1,0 +1,28 @@
+{
+  "tfjsVersion": "1.3.1",
+  "tmVersion": "2.4.7",
+  "packageVersion": "0.8.4-alpha2",
+  "packageName": "@teachablemachine/image",
+  "timeStamp": "2024-08-16T01:29:30.187Z",
+  "userMetadata": {},
+  "modelName": "model 2",
+  "labels": [
+    "Bacterial wilt",
+    "Mosaic virus",
+    "Powdery mildew",
+    "Powdery scab",
+    "Early blight",
+    "Late blight",
+    "Bottom rot",
+    "Root-knot nematodes",
+    "Peach leaf curl",
+    "Shot hole",
+    "Healthy",
+    "Others",
+    "Leaf rust",
+    "Black sigatoka",
+    "Leaf galls",
+    "Sooty mold"
+  ],
+  "imageSize": 224
+}

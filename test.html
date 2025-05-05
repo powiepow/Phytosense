@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crop Disease Detection</title>
+    <style>
+      #webcam-container,
+      #imagePreview,
+      #label-container {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Crop Disease Detection</h1>
+
+    <h2>Upload an Image</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input
+        type="file"
+        id="imageUpload"
+        name="imageUpload"
+        accept="image/*"
+        onchange="previewImage(event)"
+      />
+      <button type="submit">Upload and Predict</button>
+    </form>
+    <div id="imagePreview"></div>
+
+    <h2>Real-time Camera Detection</h2>
+    <button type="button" onclick="initWebcam()">Start Camera</button>
+    <button type="button" onclick="stopWebcam()">Stop</button>
+    <div id="webcam-container"></div>
+    <div id="label-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script>
+      const URL = "./machine-learning/";
+
+      let model,
+        webcam,
+        labelContainer,
+        maxPredictions,
+        stopCamera = false;
+
+      async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) {
+          labelContainer.appendChild(document.createElement("div"));
+        }
+      }
+
+      async function predictImage() {
+        const img = document.getElementById("uploadedImage");
+        const prediction = await model.predict(img, false);
+        for (let i = 0; i < maxPredictions; i++) {
+          const classPrediction =
+            prediction[i].className +
+            ": " +
+            (prediction[i].probability * 100).toFixed(2) +
+            "%";
+          labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+      }
+
+      function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          const output = document.createElement("img");
+          output.src = reader.result;
+          output.id = "uploadedImage";
+          document.getElementById("imagePreview").innerHTML = "";
+          document.getElementById("imagePreview").appendChild(output);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+      document.getElementById("uploadForm").onsubmit = async function (event) {
+        event.preventDefault();
+        const formData = new FormData();
+        const fileField = document.querySelector("input[type='file']");
+        formData.append("imageUpload", fileField.files[0]);
+
+        const response = await fetch("upload.php", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          const img = new Image();
+          img.src = result.imagePath;
+          img.id = "uploadedImage";
+          img.onload = async function () {
+            const prediction = await model.predict(img, false);
+            for (let i = 0; i < maxPredictions; i++) {
+              const classPrediction =
+                prediction[i].className +
+                ": " +
+                (prediction[i].probability * 100).toFixed(2) +
+                "%";
+              document.getElementById("label-container").childNodes[
+                i
+              ].innerHTML = classPrediction;
+            }
+          };
+          document.getElementById("imagePreview").innerHTML = "";
+          document.getElementById("imagePreview").appendChild(img);
+        } else {
+          alert("Image upload failed");
+        }
+      };
+
+      async function initWebcam() {
+        stopCamera = false;
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        const flip = false; // No need to flip for back camera
+        webcam = new tmImage.Webcam(200, 200, flip);
+        await webcam.setup({ facingMode: "environment" }); // Use back camera
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) {
+          labelContainer.appendChild(document.createElement("div"));
+        }
+      }
+
+      async function loop() {
+        if (!stopCamera) {
+          webcam.update();
+          await predict();
+          window.requestAnimationFrame(loop);
+        }
+      }
+
+      async function predict() {
+        const prediction = await model.predict(webcam.canvas);
+        for (let i = 0; i < maxPredictions; i++) {
+          const classPrediction =
+            prediction[i].className +
+            ": " +
+            (prediction[i].probability * 100).toFixed(2) +
+            "%";
+          labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+      }
+
+      function stopWebcam() {
+        stopCamera = true;
+        if (webcam) {
+          webcam.stop();
+          document.getElementById("webcam-container").innerHTML = "";
+        }
+      }
+
+      window.onload = init;
+    </script>
+  </body>
+</html>

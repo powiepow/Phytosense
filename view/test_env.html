@@ -1,0 +1,140 @@
+
+
+
+<!--
+BOUNDING BOX
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Disease Detection</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+  <style>
+    #webcam-container {
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="webcam-container"></div>
+  <button id="startButton" onclick="initWebcam()">Start Camera</button>
+  <button id="stopButton" onclick="stopWebcam()">Stop Camera</button>
+
+  <script>
+    const URL = "./machine-learning/"; 
+    let cocoModel, tmModel, webcam, stopCamera = false, canvas, ctx;
+
+    async function init() {
+      try {
+        cocoModel = await cocoSsd.load();
+        console.log('COCO-SSD model loaded');
+        
+        const modelURL = URL + "model.json"; 
+        const metadataURL = URL + "metadata.json"; 
+        tmModel = await tmImage.load(modelURL, metadataURL);
+        console.log('Teachable Machine model loaded');
+      } catch (error) {
+        console.error('Error loading models:', error);
+      }
+    }
+
+    async function initWebcam() {
+      stopCamera = false;
+      document.getElementById("startButton").disabled = true;
+
+      webcam = new tmImage.Webcam(320, 240, false); 
+      await webcam.setup({ facingMode: "environment" });
+      await webcam.play();
+
+      const webcamContainer = document.getElementById("webcam-container");
+      webcamContainer.appendChild(webcam.canvas);
+      canvas = document.createElement("canvas");
+      canvas.width = webcam.canvas.width;
+      canvas.height = webcam.canvas.height;
+      webcamContainer.appendChild(canvas);
+      ctx = canvas.getContext("2d");
+
+      window.requestAnimationFrame(loop); 
+    }
+
+    async function loop() {
+      if (!stopCamera) {
+        webcam.update(); 
+        await detect(); 
+        window.requestAnimationFrame(loop); 
+      }
+    }
+
+    async function detect() {
+      const image = webcam.canvas;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // COCO-SSD detection
+      const predictions = await cocoModel.detect(image);
+      console.log('COCO-SSD predictions:', predictions);
+
+      for (const prediction of predictions) {
+        if (prediction.class === "crop" || prediction.class === "plant") {
+          const { bbox } = prediction;
+
+          // Draw bounding box for detected crop
+          ctx.strokeStyle = "#00FFFF";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(bbox[0], bbox[1], bbox[2], bbox[3]);
+          ctx.fillStyle = "#00FFFF";
+          ctx.font = "18px Arial";
+          ctx.fillText(prediction.class, bbox[0], bbox[1] > 10 ? bbox[1] - 5 : 10);
+          
+          // Crop the region of interest
+          const cropCanvas = document.createElement("canvas");
+          cropCanvas.width = bbox[2];
+          cropCanvas.height = bbox[3];
+          const cropCtx = cropCanvas.getContext("2d");
+          cropCtx.drawImage(image, bbox[0], bbox[1], bbox[2], bbox[3], 0, 0, bbox[2], bbox[3]);
+
+          // Use Teachable Machine to predict crop disease
+          const tmPrediction = await tmModel.predict(cropCanvas);
+          console.log('Teachable Machine predictions:', tmPrediction);
+
+          // Get the highest prediction that is not "Others"
+          let highestPrediction = tmPrediction[0];
+          for (let j = 1; j < tmPrediction.length; j++) {
+            if (tmPrediction[j].probability > highestPrediction.probability) {
+              highestPrediction = tmPrediction[j];
+            }
+          }
+
+          // Draw bounding box and label only if the predicted class is NOT "Others"
+          if (highestPrediction.className !== "Others") {
+            ctx.strokeStyle = "#00FF00"; // Green for disease prediction
+            ctx.lineWidth = 2;
+            ctx.strokeRect(bbox[0], bbox[1], bbox[2], bbox[3]);
+            ctx.fillStyle = "#00FF00";
+            ctx.fillText(`${highestPrediction.className} - ${Math.round(highestPrediction.probability * 100)}%`, bbox[0], bbox[1] > 10 ? bbox[1] - 5 : 10);
+          }
+        }
+      }
+    }
+
+    function stopWebcam() {
+      stopCamera = true;
+      if (webcam) {
+        webcam.stop(); 
+        document.getElementById("webcam-container").innerHTML = ""; 
+        document.getElementById("startButton").disabled = false;
+      }
+    }
+
+    window.onload = init; // Initialize on page load
+  </script>
+</body>
+</html>-->

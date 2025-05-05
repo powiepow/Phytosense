@@ -1,0 +1,6 @@
+This is the folder (ai) containing the admin side configuration of each models
+
+
+test.js is in retrain.php
+
+testing of the model is in deployment.php

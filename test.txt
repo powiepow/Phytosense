@@ -1,0 +1,114 @@
+const URL = "./machine-learning/"; // Path to the model files
+
+let model,
+  webcam,
+  labelContainer,
+  maxPredictions,
+  stopCamera = false;
+
+// Initialize the model
+async function init() {
+  const modelURL = URL + "model.json"; // Model URL
+  const metadataURL = URL + "metadata.json"; // Metadata URL
+  model = await tmImage.load(modelURL, metadataURL); // Load the model
+  maxPredictions = model.getTotalClasses(); // Get the number of classes
+  labelContainer = document.getElementById("label-container"); // Get label container
+}
+
+// Webcam initialization
+async function initWebcam() {
+  // Show loader
+  document.getElementById("loader-wrapper").classList.remove("hide");
+  stopCamera = false;
+
+  // Disable the start button
+  document.getElementById("startButton").style.cursor = "not-allowed";
+  document.getElementById("startButton").disabled = true;
+
+  const modelURL = URL + "model.json"; // Model URL
+  const metadataURL = URL + "metadata.json"; // Metadata URL
+  model = await tmImage.load(modelURL, metadataURL); // Load the model
+  maxPredictions = model.getTotalClasses(); // Get the number of classes
+  const flip = false; // No need to flip for back camera
+  webcam = new tmImage.Webcam(320, 300, flip); // Create webcam instance
+  await webcam.setup({ facingMode: "environment" }); // Use back camera
+  await webcam.play(); // Start webcam
+  window.requestAnimationFrame(loop); // Start the loop
+  document.getElementById("webcam-container").appendChild(webcam.canvas); // Add webcam canvas to the container
+  labelContainer = document.getElementById("label-container"); // Get label container
+  getDiseaseName = document.getElementById("disease-name"); // Get the disease name
+
+  // Hide loader after everything is set up
+  document.getElementById("loader-wrapper").classList.add("hide");
+}
+
+// Webcam loop
+async function loop() {
+  if (!stopCamera) {
+    webcam.update(); // Update webcam feed
+    await predict(); // Predict the class
+    window.requestAnimationFrame(loop); // Continue the loop
+  }
+}
+
+// Predict the class from webcam feed
+async function predict() {
+  const prediction = await model.predict(webcam.canvas); // Predict the class from webcam feed
+  // Find the highest probability prediction
+  let highestPrediction = prediction[0];
+  for (let i = 1; i < prediction.length; i++) {
+    if (prediction[i].probability > highestPrediction.probability) {
+      highestPrediction = prediction[i];
+    }
+  }
+  // Display the highest prediction
+
+  disease_name = highestPrediction.className;
+  percentage = (highestPrediction.probability * 100).toFixed(2);
+  if (disease_name == "Others") {
+    labelContainer.innerHTML =
+      "<span style='color:red;'><i>No crops detected</i></span>";
+    getDiseaseName.href = "#";
+  } else {
+    labelContainer.innerHTML =
+      highestPrediction.className +
+      ": " +
+      (highestPrediction.probability * 100).toFixed(2) +
+      "%";
+    //getDiseaseName.href = "/diagnosis?disease=" + encodeURIComponent(highestPrediction.className);
+    $("#disease-name")
+      .off("click")
+      .on("click", function () {
+        $.ajax({
+          method: "POST",
+          url: "/crud",
+          data: {
+            disease_prediction: disease_name,
+            prediction_percentage: percentage,
+          },
+          success: function (response) {
+            $("#responseMessage").html(response);
+            console.log("AJAX request successful:", response);
+          },
+          error: function (xhr, status, error) {
+            $("#responseMessage").html("An error occurred " + error);
+          },
+        });
+      });
+  }
+}
+
+// Stop webcam
+function stopWebcam() {
+  stopCamera = true;
+  if (webcam) {
+    webcam.stop(); // Stop the webcam feed
+    document.getElementById("webcam-container").innerHTML = ""; // Clear the webcam container
+
+    // Enable the start button
+    document.getElementById("startButton").style.cursor = "pointer";
+    document.getElementById("startButton").disabled = false;
+  }
+}
+
+window.onload = init; // Initialize on page load

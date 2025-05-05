@@ -1,0 +1,2 @@
+This is the model in our framework MVC architecture.
+Machine learning models are in the directory of -> machine-learning
