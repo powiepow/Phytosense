@@ -1,17 +1,17 @@
 <?php
 
 class Database {
-    private $host = "localhost";    // Replace with your actual credentials
+    private $host = "localhost";    
     private $user = "root";
     private $pass = "";
     private $dbname = "phytosenseDB";
-    public $conn; // Make the connection accessible
+    public $conn; 
 
     public function __construct() {
-        $this->connect();          // Call the connect method in the constructor
+        $this->connect();          
     }
 
-    private function connect() {   // Make the connect method private
+    private function connect() {  
         $this->conn = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
 
         if ($this->conn->connect_error) {
@@ -23,7 +23,7 @@ class Database {
         static $instance = null;
 
         if ($instance === null) {
-            $instance = new Database(); // Create a new instance of the Database class
+            $instance = new Database(); 
         }
 
         return $instance;

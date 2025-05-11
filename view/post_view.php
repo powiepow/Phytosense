@@ -27,7 +27,6 @@ if(isset($_GET['post'])){
 </head>
 <body>
     <style>
-        /* fullscreen modal dito na*/
         .fullscreen-modal {
             display: none; 
             position: fixed; 
@@ -69,7 +68,6 @@ if(isset($_GET['post'])){
         }
 
     </style>
-    <!-- Fullscreen Modal!!!!!! -->
     <div id="fullscreenModal" class="fullscreen-modal" onclick="closeFullscreen()">
         <span class="close" onclick="closeFullscreen()">&times;</span>
         <img class="fullscreen-img" src="" alt="Full Image">
@@ -120,7 +118,6 @@ if(isset($_GET['post'])){
                                 <?php echo $pv->isUserPosted();?>
                             </ul>
                     </div>
-                    <!--yu whatevs-->
                     <?php
                     if($pv->getPostExtraOne() != "" && $pv->getPostExtratwo() ==""){
                         echo '<div class="owl-carousel owl-theme cm-m-img"> 
@@ -165,20 +162,7 @@ if(isset($_GET['post'])){
                     <small style="width:100%;"><b>Comment/s</b></small>
                     <div class="pst-comment-container" id="comments__container">
                         
-                        <!--<div class="post-comments">
-                            <img src="assets/images/me.png" alt="">
-                            <div class="cmnt-details">
-                                <b>User Name</b>
-                                <small>Type</small>
-                                <p>Hey everyone, has anyone else seen this weird spotting on their tomato leaves? They started out as small yellow dots, but now they're growing and turning brown.
-                                    pen_spark</p>
-                                    <small><b>March 19 2024</b></small>
-                            </div>
-                            <div class="cmnt-date">
-                                <i class="fa-solid fa-trash"> </i> <small> Delete</small>
-                                
-                            </div>
-                        </div>-->
+                       
                         
                     </div>
                     <form id="add__comment" class="post-comment">
@@ -212,7 +196,7 @@ if(isset($_GET['post'])){
         margin: 10,
         nav: true,
         dots: false,
-        navText: ['', ''], // Leave empty since we're using Font Awesome arrows
+        navText: ['', ''], 
         responsive: {
             0: {
                 items: 1
@@ -221,7 +205,6 @@ if(isset($_GET['post'])){
     });
 </script>
 <script>
-       // full screen
         function fullimageview(src) {
             document.querySelector('.fullscreen-img').src = src;
 

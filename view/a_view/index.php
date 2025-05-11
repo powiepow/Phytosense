@@ -38,7 +38,7 @@ $con = $db->conn;
         <?php 
         include __DIR__ . "../../includes/sidebar.php";
 
-        //include "../../includes/sidebar.php";?>
+        ?>
         <section class="main-content">
             <div class="dashboard">
                 <div class="dash-upper">

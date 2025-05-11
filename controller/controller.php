@@ -1,6 +1,5 @@
 <?php
 
-//  routes
 function index() {
     require 'view/index.php'; 
 }
@@ -47,7 +46,6 @@ function edit_post(){
 }
 
 
-//__________________@ Functions @____________________
 function crud(){
     require 'model/crud.php';
 }
@@ -59,7 +57,6 @@ function logout(){
 }
 
 
-// reset email
 
 function reset_email(){
     require 'model/reset_email.php';
@@ -67,19 +64,14 @@ function reset_email(){
 
 
 
-//ADMIN
 
 function a_crud(){
     require 'model/a.crud.php';
 }
 
-//__________@ To Admin @___________
-
-//normal
 function a_signin(){
     require 'view/a_view/signin.php';
 }
-//case
 function a_brute_signin(){
     require 'view/a_view/brute_signin.php';
 }
@@ -133,7 +125,7 @@ function deployment(){
     require 'view/a_view/deployment.php';
 }
 
-//404
+
 
 function error404(){
     require 'view/404/error_404.html';

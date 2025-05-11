@@ -9,7 +9,7 @@ user_session();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/style/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!--11/5/2024-->
+  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -17,7 +17,6 @@ user_session();
 </head>
 <body>
     <style>
-        /* fullscreen modal dito na*/
         .fullscreen-modal {
             display: none; 
             position: fixed; 
@@ -59,7 +58,6 @@ user_session();
         }
 
     </style>
-    <!-- Fullscreen Modal!!!!!! -->
     <div id="fullscreenModal" class="fullscreen-modal" onclick="closeFullscreen()">
         <span class="close" onclick="closeFullscreen()">&times;</span>
         <img class="fullscreen-img" src="" alt="Full Image">
@@ -107,39 +105,7 @@ user_session();
                     </select>
                 </span>
             </section>
-            <section class="cm-bot-container" id="feed_container"> <!--Posts Parent-->
-
-
-                <!--<div class="post-container">
-                    <div class="cm-img">
-                        <a href="" class="report"><i class="fa-solid fa-triangle-exclamation "></i></a>
-                        <img src="assets/images/14.png" alt="">
-                    </div>
-                    <div class="cm-details">
-                        <div class="cm-user">
-                            <img src="assets/images/me.png" alt="">
-                            <span>
-                                <h4>Christopher Canada</h4>
-                            <small>March 9 2021</small>
-                            </span>
-                        </div>
-                        <div class="cm-question">
-                            <p>
-                                Hey everyone, has anyone else seen this weird spotting on their tomato leaves? They
-                                started out as small yellow dots, but now they're growing and turning brown.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="cm-additionals">
-                        <div class="cm-upvotes">
-                            <p>10 <i class="fa-regular fa-thumbs-up"></i></p>
-                            <p>2 <i class="fa-regular fa-thumbs-down"></i></p>
-                        </div>
-                        
-                        <a href="post_view.html" class="cm-answers"><p><b>Answers</b> 10</p></a>
-                    </div>
-                </div>-->
-                
+            <section class="cm-bot-container" id="feed_container">
                 
             </section>
         </div>

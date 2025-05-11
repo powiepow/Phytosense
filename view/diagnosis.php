@@ -1,11 +1,9 @@
 <?php
 require "helper/user-session.php";
 user_session();
-//calls for the database connection
 require_once "model/database.php";
 $db = Database::getInstance();
 $con = $db->conn; 
-//call class disease
 require_once "model/classes.php";
 if(isset($_GET['log'])){
     $diseaseName = $_GET['log'];
@@ -24,7 +22,6 @@ if(isset($_GET['log'])){
     <title>Phytosense</title>
 </head>
 <body>
-    <!--madami redundant tag sa header. srry XD-->
     <header>
         <div class="sticky" id="sidebar">
             <div class="brnd-container">

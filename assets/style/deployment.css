@@ -1,9 +1,9 @@
 .class_view td {
-    white-space: normal; /* Allows text to wrap */
-    word-break: break-word; /* Breaks long words if needed */
+    white-space: normal; 
+    word-break: break-word;
 }
 .class_view th, .class_view td {
-    min-width: 150px; /* Adjust this value as needed */
+    min-width: 150px; 
    
 }
 

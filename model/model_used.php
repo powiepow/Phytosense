@@ -4,7 +4,6 @@ $db = Database::getInstance();
 $con = $db->conn; 
 
 
-//session_start();
 require 'vendor/autoload.php';
 
 

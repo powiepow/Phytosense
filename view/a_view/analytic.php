@@ -37,7 +37,7 @@ $con = $db->conn;
     <main class="main-parent-container">
         <?php 
             include __DIR__ . "../../includes/sidebar.php";
-            //include "../../includes/sidebar.php";?>
+           ?>
         <section class="main-content">
             <div class="analytic_area">
                 <div class="analytic_left">

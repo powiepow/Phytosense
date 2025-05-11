@@ -9,7 +9,7 @@ document.getElementById('loadModel').addEventListener('click', () => {
 
     if (!modelName) {
         tf.io.removeModel('indexeddb://retrained-model');
-        //alert("Please select a model.");
+
         swal({
             icon: "error",
             title: "Error",
@@ -50,8 +50,6 @@ document.getElementById('loadModel').addEventListener('click', () => {
 
 
 
-
-//deploy model function
 
 document.getElementById('deploy_model').addEventListener('click', () =>{
     const modelSelect = document.getElementById('modelSelect');
@@ -110,7 +108,7 @@ document.getElementById('deploy_model').addEventListener('click', () =>{
     });
 });
 
-//--=-=-=-==--- delete model function
+
 
 document.getElementById('delete_model').addEventListener('click', () =>{
     const modelSelect = document.getElementById('modelSelect');
@@ -171,14 +169,9 @@ document.getElementById('delete_model').addEventListener('click', () =>{
 });
 
 
-//add the model function
 
 
 
-
-
-
-// file input echecling 
 $('#upload_model').on('change', function () {
     const uploadInput = $('#upload_model')[0];
     const modelNameInput = $('#modelName');
@@ -209,7 +202,7 @@ $('#upload_model').on('change', function () {
     }
 });
 
-// submission //upload button
+
 $('#uploadForm').on('submit', function (e) {
     e.preventDefault();
 
@@ -271,7 +264,6 @@ $('#uploadForm').on('submit', function (e) {
                                 window.location.reload();
                             });
                             
-                            //uploadStatus.text('Upload complete!');
                             break;
                         case "Failed":
                             swal({
@@ -304,7 +296,6 @@ $('#uploadForm').on('submit', function (e) {
     });
 });
 
-// clear input
 $('#cancelBtn').on('click', function () {
     $('#upload_model').val('');
     $('#modelName').val('');
@@ -357,7 +348,7 @@ $('#cancelBtn').on('click', function () {
 
 
 let model;
-let labels = []; // Dynamic labels array
+let labels = []; 
 let videoStream;
 let isPredicting = false;
 
@@ -365,10 +356,9 @@ const videoElement = document.getElementById("camera_prev");
 const modelSelect = document.getElementById("modelSelect");
 const startButton = document.getElementById("startCam");
 const stopButton = document.getElementById("stopCam");
-const predictionTable = document.getElementById("prediction_table"); // Target the prediction table
-const predictionDelay = 1000; // Delay in milliseconds (1 second)
+const predictionTable = document.getElementById("prediction_table"); 
+const predictionDelay = 1000; 
 
-// Load the model and labels based on the selected option
 async function loadModelAndLabels() {
     const selectedModel = modelSelect.value;
 
@@ -400,7 +390,6 @@ async function loadModelAndLabels() {
     return model;
 }
 
-// Start the camera feed
 async function startCamera() {
     try {
         videoStream = await navigator.mediaDevices.getUserMedia({ video: { width: 250, height: 250 } });
@@ -414,7 +403,6 @@ async function startCamera() {
     }
 }
 
-// Stop the camera feed
 function stopCamera() {
     if (videoStream) {
         videoStream.getTracks().forEach(track => track.stop());
@@ -422,13 +410,11 @@ function stopCamera() {
     isPredicting = false;
     videoElement.srcObject = null;
 
-    // Clear the prediction table
     predictionTable.innerHTML = "<tr><td>No Predictions</td><td>N/A</td></tr>";
 }
 
-// Run predictions in a loop with a delay
 async function startPredictionLoop() {
-    let retries = 5; // Allow a few retries if the video feed isn't ready
+    let retries = 5; 
     while (isPredicting) {
         if (videoElement.videoWidth === 0 || videoElement.videoHeight === 0) {
             if (retries-- > 0) {
@@ -445,54 +431,48 @@ async function startPredictionLoop() {
             updateTable(predictions);
         }
 
-        // Add a delay before the next prediction
         await new Promise(resolve => setTimeout(resolve, predictionDelay));
     }
 }
 
-// Make a prediction using the current video frame
 async function makePrediction() {
     if (!model || labels.length === 0 || !videoElement.srcObject) return null;
 
     if (videoElement.videoWidth === 0 || videoElement.videoHeight === 0) {
         console.warn("Video element not ready for prediction.");
-        return null; // Exit if video feed is not ready
+        return null; 
     }
 
     try {
         const predictions = tf.tidy(() => {
-            // Capture and preprocess the video frame
+            
             const tensor = tf.browser.fromPixels(videoElement)
-                .resizeNearestNeighbor([224, 224]) // Ensure dimensions match the model's input shape
+                .resizeNearestNeighbor([224, 224]) 
                 .toFloat()
                 .div(127.5)
                 .sub(1)
                 .expandDims();
 
-            // Make the prediction
             return model.predict(tensor);
         });
 
-        // Get prediction data asynchronously
         const predictionData = await predictions.data();
-        predictions.dispose(); // Dispose the prediction tensor after data extraction
+        predictions.dispose(); 
 
-        // Map predictions to labels and sort by confidence
         return Array.from(predictionData)
             .map((confidence, index) => ({
                 label: labels[index] || "Unknown",
                 confidence: confidence,
             }))
-            .sort((a, b) => b.confidence - a.confidence); // Sort by confidence (descending)
+            .sort((a, b) => b.confidence - a.confidence); 
     } catch (error) {
         console.error("Error during prediction:", error);
         return null;
     }
 }
 
-// Update the prediction table
 function updateTable(predictions) {
-    predictionTable.innerHTML = ""; // Clear previous results
+    predictionTable.innerHTML = ""; 
 
     predictions.forEach(({ label, confidence }) => {
         const row = document.createElement("tr");
@@ -508,10 +488,9 @@ function updateTable(predictions) {
     });
 }
 
-// Event listener for Start button
 startButton.addEventListener("click", async () => {
     if (!model) {
-        await loadModelAndLabels(); // Load model only when Start is clicked
+        await loadModelAndLabels(); 
     }
 
     if (model) {
@@ -521,7 +500,6 @@ startButton.addEventListener("click", async () => {
     }
 });
 
-// Event listener for Stop button
 stopButton.addEventListener("click", () => {
     stopCamera();
 });
@@ -542,19 +520,14 @@ stopButton.addEventListener("click", () => {
 
 
 
-//==================Upload
 
 
 
-
-
-// DOM Elements
 const uploadInput = document.getElementById("upload_image");
 const uploadPreviewContainer = document.querySelector(".upload_preview");
 const predictionResultsBody = document.getElementById("upload_prediction_results"); // Unique tbody
 
 
-// Load the model and labels
 async function loadModelAndLabels() {
     const selectedModel = modelSelect.value;
 
@@ -579,7 +552,6 @@ async function loadModelAndLabels() {
     }
 }
 
-// Handle image upload
 uploadInput.addEventListener("change", async (event) => {
     const file = event.target.files[0];
 
@@ -598,11 +570,11 @@ uploadInput.addEventListener("change", async (event) => {
     }
 
     const imgElement = document.createElement("img");
-    imgElement.classList.add("image_preview"); // Ensures consistent styling
+    imgElement.classList.add("image_preview"); 
     imgElement.src = URL.createObjectURL(file);
 
     imgElement.onload = async () => {
-        URL.revokeObjectURL(imgElement.src); // Clean up object URL
+        URL.revokeObjectURL(imgElement.src); 
 
         const width = imgElement.naturalWidth;
         const height = imgElement.naturalHeight;
@@ -612,7 +584,7 @@ uploadInput.addEventListener("change", async (event) => {
             return;
         }
 
-        uploadPreviewContainer.innerHTML = ""; // Clear previous preview
+        uploadPreviewContainer.innerHTML = "";
         uploadPreviewContainer.appendChild(imgElement);
 
         const predictions = await makePredictionFromImage(imgElement);
@@ -626,12 +598,12 @@ uploadInput.addEventListener("change", async (event) => {
     };
 });
 
-// Make a prediction from the uploaded image
+
 async function makePredictionFromImage(imageElement) {
     if (!model || labels.length === 0) return null;
 
     const predictions = tf.tidy(() => {
-        // Capture and preprocess the uploaded image
+
         const tensor = tf.browser.fromPixels(imageElement)
             .resizeNearestNeighbor([224, 224])
             .toFloat()
@@ -641,24 +613,22 @@ async function makePredictionFromImage(imageElement) {
 
         console.log("Input tensor shape:", tensor.shape);
 
-        // Make the prediction
         return model.predict(tensor);
     });
 
     const predictionData = await predictions.data();
-    predictions.dispose(); // Dispose the prediction tensor after data extraction
+    predictions.dispose(); 
 
     return Array.from(predictionData)
         .map((confidence, index) => ({
             label: labels[index] || "Unknown",
             confidence: confidence
         }))
-        .sort((a, b) => b.confidence - a.confidence); // Sort by confidence (descending)
+        .sort((a, b) => b.confidence - a.confidence); 
 }
 
-// Update the prediction results table
 function updatePredictionResults(predictions) {
-    predictionResultsBody.innerHTML = ""; // Clear previous results
+    predictionResultsBody.innerHTML = ""; 
 
     predictions.forEach(({ label, confidence }) => {
         const row = document.createElement("tr");
@@ -670,7 +640,7 @@ function updatePredictionResults(predictions) {
 
         row.appendChild(labelCell);
         row.appendChild(confidenceCell);
-        predictionResultsBody.appendChild(row); // Append to the unique table
+        predictionResultsBody.appendChild(row); 
     });
 
     console.log("Prediction results updated:", predictions);

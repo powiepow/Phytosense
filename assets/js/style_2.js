@@ -7,7 +7,6 @@ $("#option").click(function(){
     $(".up_optn").toggleClass('clck');
 });
  
-//Active link
 document.addEventListener('click', (event) => {
     const link = event.target.closest('[data-target]'); 
   
@@ -29,7 +28,6 @@ document.addEventListener('click', (event) => {
   }
 
 
-  //image previewing
 
   function image_upload_preview(){
     const image_prev = document.getElementById("pd_img_label");
@@ -54,7 +52,4 @@ document.addEventListener('click', (event) => {
   
     
   }
-
-
-  //the chart
 

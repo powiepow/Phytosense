@@ -32,7 +32,7 @@ require "helper/admin-session.php";
     <?php 
         include __DIR__ . "../../../includes/sidebar.php";
 
-        //include "../../includes/sidebar.php";?>
+        ?>
         <section class="main-content">
             
             <div class="table_container">

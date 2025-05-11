@@ -1,4 +1,4 @@
-// HTML Elements
+
 const uploadPhotoInput = document.getElementById("uploadPhoto");
 const labelContainer = document.getElementById("label-container");
 const loaderWrapper = document.getElementById("loader-wrapper");
@@ -16,14 +16,11 @@ function fetchModelForUpload() {
     dataType: "text",
     success: function (data) {
       const model_used = data;
-      //console.log("Fetched model for upload:", model_used);
 
     
       modelFolderPath = `../../machine-learning/${model_used}/model.json`;
       metadataPath = `../../machine-learning/${model_used}/metadata.json`;
 
-      //console.log("Model folder path for upload:", modelFolderPath);
-      //console.log("Metadata path for upload:", metadataPath);
 
 
       initUploadModel();
@@ -43,16 +40,13 @@ async function initUploadModel() {
     const metadata = await metadataResponse.json();
 
     classLabels = metadata.labels || [];
-    //console.log("Model and metadata for upload loaded successfully.");
   } catch (error) {
     console.error("Error initializing upload model:", error);
   }
 }
 
-// EVENT LISTENER for File Upload
 uploadPhotoInput.addEventListener("change", handlePhotoUpload);
 
-// HANDLE Photo Upload
 async function handlePhotoUpload(event) {
   const file = event.target.files[0];
   if (!file || !file.type.startsWith("image/") || file.size > 5 * 1024 * 1024) {
@@ -65,18 +59,17 @@ async function handlePhotoUpload(event) {
   }
 
   try {
-    loaderWrapper.classList.remove("hide"); // Show loader
+    loaderWrapper.classList.remove("hide"); 
     const imageTensor = await readImage(file);
     await predictUpload(imageTensor);
-    loaderWrapper.classList.add("hide"); // Hide loader
+    loaderWrapper.classList.add("hide"); 
   } catch (error) {
     console.error("Error during upload prediction:", error);
-    loaderWrapper.classList.add("hide"); // Hide loader on error
+    loaderWrapper.classList.add("hide"); 
     labelContainer.innerHTML = `<span style="color:red;">Error predicting the image</span>`;
   }
 }
 
-// READ the uploaded image and return as a tensor
 async function readImage(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -104,7 +97,6 @@ async function readImage(file) {
   });
 }
 
-// PREDICT uploaded image
 async function predictUpload(imageTensor) {
   try {
     const predictions = await model.predict(imageTensor).data();
@@ -145,7 +137,6 @@ async function predictUpload(imageTensor) {
   }
 }
 
-// SEND prediction results via AJAX
 function sendUploadPrediction(disease_name, percentage) {
   $.ajax({
     method: "POST",
@@ -179,5 +170,4 @@ function sendUploadPrediction(disease_name, percentage) {
   });
 }
 
-// INITIALIZE for upload prediction
 fetchModelForUpload();

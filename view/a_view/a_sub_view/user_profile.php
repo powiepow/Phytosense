@@ -1,15 +1,12 @@
 <?php
 require "helper/admin-session.php";
 
-//absolute pathing 
-//require_once __DIR__ . "/../../../model/database.php";
 
 require_once "model/classes.php";
 require_once "model/database.php";
 admin_session();
 $db = Database::getInstance();
 $con = $db->conn; 
-//$userId = $_SESSION['userId'];
 if(isset($_GET['u_id'])){
     $userId = intval($_GET['u_id']);
 }else{
@@ -48,7 +45,7 @@ $user = new User($userId, $con);
     <?php 
         include __DIR__ . "../../../includes/sidebar.php";
 
-        //include "../../includes/sidebar.php";?>
+        ?>
         <section class="main-content">
            <div class="user-profile">
                 <aside class="aside-btn">
@@ -102,10 +99,9 @@ $user = new User($userId, $con);
 
 
 
-                    <!--==========POST============-->
                     <section class="profile__section" content id="post">
                         <div class="top">
-                            <p><b>Posts</b> <!--<big>(5)</big>--></p>
+                            <p><b>Posts</b> </p>
                             <div class="filter">
                                 <i class="fa-solid fa-filter"></i>
                                 <select name="" id="user__post_filter">
@@ -139,10 +135,9 @@ $user = new User($userId, $con);
                     </section>
 
 
-                    <!--==========HISTORY============-->
                     <section class="profile__section" content id="history">
                         <div class="top">
-                            <p><b> Queries</b> <!--<big>(5)</big>--></p>
+                            <p><b> Queries</b> </p>
                             <div class="filter">
                                 <i class="fa-solid fa-filter"></i>
                                 <select name="" id="user__history_filter">
@@ -164,10 +159,9 @@ $user = new User($userId, $con);
                     </section>
 
 
-                    <!--==========FLAG============-->
                     <section class="profile__section" content id="flag">
                         <div class="top">
-                            <p><b>Flag Posts</b> <!--<big>(5)</big>--></p>
+                            <p><b>Flag Posts</b> </p>
                             <div class="filter">
                                 <i class="fa-solid fa-filter"></i>
                                 <select name="" id="user__flagged_filter">

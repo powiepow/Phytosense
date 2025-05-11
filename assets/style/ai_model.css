@@ -1,41 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque&family=Days+One&family=Edu+SA+Beginner&family=Nova+Mono&family=Orbitron&family=Poppins&family=Press+Start+2P&family=Roboto&family=Roboto+Mono&family=Russo+One&display=swap");
 
 :root {
-    /*Color
-      light variation
-      FAFAFA - lighter
-      #F3F3F3 - dim light
-      */
+    
     --clr-primary: #fafafa;
     --clr-secondary: #5e8e56;
     --clr-teritary: #d5c8af;
     --clr-shadow: #d8d8d8;
     --clr-font: #1b241a;
     --lnk-hover: #e05e44;
-    /*Sizing Laptop*/
+   
   
     --fnt-sze-primary: 12px;
     --logo-height: 80px;
     --logo-height-2: 50px;
   
-    /*Sizing Cellphone 
-      55x33 logo
-      101x124
-      */
+    
     --cpw-logo: 60px;
     --cph-logo: 38px;
     --cp-font-default: 11px;
-    /*Fonts*/
-  
-    /*Padding*/
-  
-    /*Sizing General*/
+    
     --max-w:800px;
     --max-h: 1120px;
   }
 
 
-  /*===============Retraining============*/
   .bottom_content{
     display: flex;
     gap: 10px;
