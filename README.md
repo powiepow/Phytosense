@@ -52,3 +52,4 @@ To deploy Phytosense online:
 3. Update your database credentials in the config file (e.g., db.php)
 4. Access the app via your live domain or subdomain
 
+
