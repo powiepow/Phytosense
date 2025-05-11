@@ -22,15 +22,15 @@
   right: 0px; 
 }
 .owl-prev::before, .owl-next::before {
-  content: '\f104'; /* Font Awesome left arrow */
-  font-family: "Font Awesome 5 Free"; /* Assuming Font Awesome is loaded */
+  content: '\f104'; 
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
   color: #000;
 }
 .owl-next::before {
-  content: '\f105'; /* Font Awesome right arrow */
+  content: '\f105'; 
 }
-/*08/24/2024*/
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -48,7 +48,7 @@ html {
   --clr-shadow: #d8d8d8;
   --clr-font: #1b241a;
   --lnk-hover: #e05e44;
-  /*Sizing Laptop*/
+  
 
   --fnt-sze-primary: 12px;
   --logo-height: 80px;
@@ -57,11 +57,7 @@ html {
   --cpw-logo: 60px;
   --cph-logo: 38px;
   --cp-font-default: 11px;
-  /*Fonts*/
-
-  /*Padding*/
-
-  /*Sizing General*/
+  
   --max-w: 800px;
   --max-h: 1120px;
 }

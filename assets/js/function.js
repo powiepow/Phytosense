@@ -1,5 +1,4 @@
 
-//sign up 
 function signup(){
     $('#signupForm').on('submit', function(event) {
         event.preventDefault(); 
@@ -18,7 +17,7 @@ function signup(){
     });
 }
 
-//Sign in
+
 function signin(){
     $('#signinForm').on('submit', function(event) {
         event.preventDefault(); 
@@ -27,11 +26,9 @@ function signin(){
         var username = $('#username').val();
         var password = $('#password').val();
 
-        // Encrypt the form data
         var encryptedUsername = encryptData(username, nsk);
         var encryptedPassword = encryptData(password, nsk);
 
-        // Create data object with encrypted values
         var data = {
             username: encryptedUsername,
             password: encryptedPassword,
@@ -51,7 +48,6 @@ function signin(){
     });
 }
 function encryptData(plaintext, secretKey) {
-    // Convert the secret key to a CryptoJS format
     var key = CryptoJS.enc.Hex.parse(secretKey);
     var iv = CryptoJS.lib.WordArray.random(16);
 
@@ -68,7 +64,7 @@ function encryptData(plaintext, secretKey) {
 
 let lastClickTime = 0; 
 const clickCooldown = 2000; 
-//Create post
+
 function post_query() {
     $('#post-form').on('submit', function(event) {
         event.preventDefault();
@@ -119,45 +115,6 @@ function post_query() {
     });
 }
 
-/*function post_query(){
-    $('#post-form').on('submit', function(event){
-        event.preventDefault();
-        const descArea = document.getElementById('desc-area').value.trim(); // Check the value of the textarea
-        if(descArea === ""){
-            swal("Please add a description", {
-                title: "Note",
-                icon: "info",
-            });
-            return false;
-        }else{
-            var formElement = $('#post-form')[0];
-            var formData = new FormData(formElement);
-            formData.append('add_post', '1');
-            $.ajax({
-                url: 'crud',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response){
-                    swal("Posted successfully", {
-                        title: "Success",
-                        icon: "success",
-                    }).then(function(){
-                        $('#responseMessage').html(response); 
-                    });
-                },
-                error: function(xhr, status, error){
-                    swal("Something occured. Please try again later", {
-                        title: "Failed",
-                        icon: "error",
-                    });
-                }
-            });
-        }
-    });
-}*/
-//===========edit post
 
 
 function edit_post(){
@@ -228,10 +185,10 @@ function edit_post(){
     });
 }
 
-//like post
+
 
 function like_dislike(action, postId) {
-    const currentTime = Date.now(); // Get the current timestamp
+    const currentTime = Date.now(); 
 
     if (currentTime - lastClickTime < clickCooldown) {
         console.log('Please wait before clicking again.');
@@ -259,7 +216,6 @@ function like_dislike(action, postId) {
     });
 }
 
-//Report Post
 
 function report_post(pk){
     swal({
@@ -305,7 +261,7 @@ function report_post(pk){
     });
 }
 
-//delete post
+
 function delete_post(dp){
     swal({
         title: "Delete Post",
@@ -351,7 +307,6 @@ function delete_post(dp){
     });
 }
 
-//Add comment
 
 function add_comment(){
     const txtCount = document.getElementById('cmnt__textCount');
@@ -388,7 +343,7 @@ function add_comment(){
         });
     });
 }
-// delete comment
+
 
 function delete_comment(dc){
     swal({
@@ -430,7 +385,6 @@ function delete_comment(dc){
     });
 }
 
-// /profile history tab
 
 
 function show_history(){
@@ -484,7 +438,6 @@ function postDisplayRequest(data){
     });
 }
 
-//========Update profile
 
 function update_profile(){
     $("#update_profile").on("submit", function(event){

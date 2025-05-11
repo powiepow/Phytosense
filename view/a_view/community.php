@@ -33,10 +33,9 @@ admin_session();
         <?php 
         include __DIR__ . "../../includes/sidebar.php";
 
-        //include "../../includes/sidebar.php";?>
+        ?>
         <section class="main-content">
             <div class="community__post">
-                <!--u-upper class container is recycled from user page-->
                 <div class="u-upper">
                     <div class="filter">
                         <i class="fa-solid fa-filter"></i>
@@ -50,23 +49,6 @@ admin_session();
                 </div>
                 <div class="c-bot" id="post_parent_container">
                     
-                    <!--<div class="rp-box" onclick="window.location.href='/a_view/page/post'">
-                        <div class="___">
-                            <img src="../../assets/images/me.png" alt="">
-                            <div class="rp-post">
-                                <span style="display:flex; gap: 10px;"><h4>Christopher Canada </h4>
-                                    <span class="adds_on" style="display: flex; align-items: center; gap: 10px;">| 
-                                        <span>5 <i class="fa-regular fa-thumbs-up"></i></span> 
-                                        <span>2 <i class="fa-regular fa-thumbs-down"></i></span> | 
-                                        <span>3 <i class="fa-regular fa-comment"></i></span>
-                                    </span>
-                                </span>
-                                <b><small>March 9, 2022</small></b>
-                                <p>Lorem ipsum  dolor aspernatur hic necessitatibus facilis v</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-trash"></i>
-                    </div>-->
                 </div>
             </div>
         </section>

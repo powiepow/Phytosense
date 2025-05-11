@@ -1,6 +1,6 @@
 <nav class="sidebar">
             <div class="menu-icon">
-                <!--<i class="fa-solid fa-leaf leaf" id="leaf"></i>--><p>Phytosense</p>
+                <p>Phytosense</p>
                 <i id="mnu-btn" class="fa-solid fa-bars"></i>
             </div>
             <ul>

@@ -1,9 +1,7 @@
 <?php
-//Calls for the database connection (TM)
 require_once "database.php";
 $db = Database::getInstance();
 $con = $db->conn; 
-//Uhm for uniqueness sa image names :>
 $random = rand(1, 999);
 
 session_start();
@@ -16,7 +14,6 @@ $dotenv->load();
 
 $secretKey = $_ENV['SECRET_KEY'];
 
-//=============================Admin sign in
 
 
 
@@ -55,7 +52,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['ad_signin'])){
     
 }
 
-//check signin field input
 
 function checkEmptyField($username,$pass) {
     if ($username == "" || $pass ="") {
@@ -65,7 +61,6 @@ function checkEmptyField($username,$pass) {
 }
 
 
-//decryption
 function decrypt($encryptedData, $secretKey) {
     $cipher = "aes-256-cbc";
 
@@ -79,7 +74,6 @@ function decrypt($encryptedData, $secretKey) {
     return $decryptedData;
 }
 
-//@!!!!!!!!!!!!!!!!!!!! @contingency only 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['ad_b_signin'])){
 
     $E_username = $_POST['username'];
@@ -118,7 +112,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['ad_b_signin'])){
 
 
 
-//================USER SEARCH
+
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['u_search'])){
     $input = "%". clean($_POST['u_search']) . "%";
@@ -160,7 +154,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['u_search'])){
 }
 
 
-//-===================Manage user 
 
 
 
@@ -171,7 +164,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['u_manage_type'])){
         case "delete":
             $userId = $_POST['userId'];
 
-            //Do they exist
             userExist($userId, $con);
 
             $query = mysqli_prepare($con, "delete from tbluser where userId = ?");
@@ -232,7 +224,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['u_manage_type'])){
                 echo "Update failed!";
             }
         
-            //-------
             break;
 
 
@@ -262,7 +253,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['u_manage_type'])){
 }
 
 
-//========Show user post
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['manage_user_post'])){
     $p_user = $_POST['manage_user_post'];
     $userId= $_POST['u_id'];
@@ -321,7 +311,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['manage_user_post'])){
 
 }
 
-//delete post
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete_posts'])){
     $postId = $_POST['delete_posts'];
     $query = mysqli_prepare($con, "delete from tblpost where postId = ?");
@@ -337,7 +326,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete_posts'])){
 
 
 
-//==================show user history
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['show_user_histories'])){
     $h_user = $_POST['show_user_histories'];
     $userId= $_POST['u_id'];
@@ -391,7 +379,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['show_user_histories']))
     }
 }
 
-//---delete history
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete_histories'])){
    $historyId = $_POST['delete_histories'];
    $query = mysqli_prepare($con, "delete from tblhistory where historyId = ?");
@@ -406,7 +393,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete_histories'])){
 
 }
 
-//=====================show user flagged post
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['show_user_flagged'])){
     $f_user = $_POST['show_user_flagged'];
     $userId= $_POST['u_id'];
@@ -477,7 +463,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete_report'])){
     }
     mysqli_stmt_close($query);
 }
-//==================================function
 function isUserFlag($userId, $con){
     $check = mysqli_prepare($con, "select isFlag from tbluser where userId = ?");
     mysqli_stmt_bind_param($check, "i", $userId);
@@ -500,12 +485,10 @@ function validateUsername($userId, $username, $con){
     $row=mysqli_fetch_assoc($result);
     if ((mysqli_num_rows($result) > 0)  && ($row['userId'] != $userId)) {
         echo "Username is already in use.";
-        //echo "<script>window.location.href='/signup?exists'</script>";
         exit;
     }
 }
 
-//check email
 function validateEmail($userId, $email, $con){
     $stmt_check = mysqli_prepare($con, "select email, userId from tbluser where email = ?");
     mysqli_stmt_bind_param($stmt_check, "s", $email);
@@ -514,7 +497,6 @@ function validateEmail($userId, $email, $con){
     $row=mysqli_fetch_assoc($result);
     if ((mysqli_num_rows($result) > 0) && ($row['userId'] != $userId)) {
         echo "Email is already in use.";
-        //echo "<script>window.location.href='/signup?exists'</script>";
         exit;
     }
 
@@ -537,7 +519,6 @@ if(mysqli_num_rows($result) < 1){
 
 
 
-//====================User Posts
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['show_user_posting'])){
     $data = $_POST['show_user_posting'];
@@ -643,7 +624,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['show_user_posting'])){
     
    
 }
-//=====view others 
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['view_others'])){
     $query = "
@@ -681,7 +661,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['view_others'])){
                     </div>';
     }
 }
-//=====delete user post
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete_user_post'])){
     $postId = $_POST['delete_user_post'];
@@ -700,9 +679,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete_user_post'])){
 
 
 
-//========Plant Disease Management================
-
-//Retrieve existing disease :)
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['pd_srch_existing'])){
     $pd_response = [];
@@ -729,7 +705,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['pd_srch_existing'])){
         $pd_response["prevention"] = $row["diseasePrevention"];
         $pd_response["name"] = $row["diseaseName"];
     }
-    //echo($pd_response);
     echo json_encode($pd_response);
 
     mysqli_stmt_close($query);
@@ -738,7 +713,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['pd_srch_existing'])){
 
 
 }
-//=====================Managing Plant Disease
 
 if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['pd_manage_type'])){
     $manage_type = $_POST['pd_manage_type'];
@@ -746,11 +720,9 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['pd_manage_type'])){
         case "Add":
             $pd_image = isset($_FILES['pd_image']['name']) && !empty($_FILES['pd_image']['name']) ? $random . $_FILES['pd_image']['name'] : "null.png";
             $pd_name = clean(ucwords($_POST['pd_disease_name']));
-            //Check if disease already exists in database
             diseaseExists($pd_name, $con);
 
 
-            //$pd_id = $_POST['pd_id'];
             $pd_desc = clean(ucfirst($_POST['pd_description']));
             $pd_symptom = clean(ucfirst($_POST['pd_symptom']));
             $pd_treatment = clean(ucfirst($_POST['pd_treatment']));
@@ -777,7 +749,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['pd_manage_type'])){
             $pd_image = isset($_FILES['pd_image']['name']) && !empty($_FILES['pd_image']['name']) ? $random . $_FILES['pd_image']['name'] : null;
             $did = clean(ucwords($_POST['pd_id']));
             $pd_name = clean(ucwords($_POST['pd_disease_name']));
-            // Check if the disease already exists in the database
             $query = mysqli_prepare($con, "select diseaseId, diseaseImage from tbldisease where diseaseId = ?");
             mysqli_stmt_bind_param($query, "i", $did);
             mysqli_stmt_execute($query);
@@ -786,22 +757,19 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['pd_manage_type'])){
             mysqli_stmt_close($query);
 
             if ($pd_id) {
-                // Prepare the rest of the data
                 $pd_desc = clean(ucfirst($_POST['pd_description']));
                 $pd_symptom = clean(ucfirst($_POST['pd_symptom']));
                 $pd_treatment = clean(ucfirst($_POST['pd_treatment']));
                 $pd_prevention = clean(ucfirst($_POST['pd_prevention']));
             
-                // Check if a new image is uploaded, otherwise keep the existing one
                 if ($pd_image != null) {
                     $temp_name = $_FILES['pd_image']['tmp_name'];
                     $to_folder = "assets/images/disease-image/" . $pd_image;
                     move_uploaded_file($temp_name, $to_folder);
                 } else {
-                    $pd_image = $existing_image; // Keep the existing image if no new one is provided
+                    $pd_image = $existing_image; 
                 }
             
-                // Update the existing disease record
                 $update_query = mysqli_prepare($con, "update tbldisease set diseaseName = ?, diseaseDesc = ?, diseaseTreatment = ?, diseaseSymptom = ?, diseasePrevention = ?, diseaseImage = ? where diseaseId = ?");
                 mysqli_stmt_bind_param($update_query, "ssssssi", $pd_name, $pd_desc, $pd_treatment, $pd_symptom, $pd_prevention, $pd_image, $pd_id);
                 $exe = mysqli_stmt_execute($update_query);
@@ -837,7 +805,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['pd_manage_type'])){
     }
 }
 
-//=====================Analytics
 
 if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['barcharts'])){
     $query = mysqli_prepare($con, "select d.diseaseName, count(h.historyId) as predictionCount 
@@ -857,7 +824,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['barcharts'])){
 }
 
 
-//======================show userType
 
 
 
@@ -895,7 +861,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['showUserTypes'])){
 }
 
 
-//======================show reported posts
 
 
 
@@ -978,7 +943,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['flaggedUsers'])){
 
 }
 
-//searhc flagged user
 
 if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['searchFlagged'])){
     $search = "%" . $_POST['searchFlagged'] . "%";
@@ -1050,13 +1014,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['unflagUser'])){
 
 
 
-//---------------------------------ALL ABOUT THE MODEL PAGE 
 
 
 if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['model_name'])){
     $model_name = $_POST['model_name'];
     
-    //will set deployed to 0 
     disableModel($con);
 
     $query = mysqli_prepare($con, "update modelversion set deployed = 1 where modelName = ? ");
@@ -1070,8 +1032,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['model_name'])){
 
      mysqli_stmt_close($query);
 }
-
-//----- ADD MODEL
 
 try {
    
@@ -1122,7 +1082,6 @@ try {
     echo $response = $e->getMessage();
 }
 
-//------ delete model
 
 if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['deleteModel'])){
     $modelNme = $_POST['deleteModel'];
@@ -1139,7 +1098,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['deleteModel'])){
     mysqli_stmt_close($query);
 
 }
-//---all about model function
 
 function addModel($modelName, $con){
     $query = mysqli_prepare ($con, "insert into modelversion(modelName, deployed, modelCreated)
@@ -1171,17 +1129,14 @@ function disableModel($con){
 
 function deleteModel($modelName) {
     $tDir = __DIR__ . '/../machine-learning/';
-    //$tDir = __DIR__ . '../../machine-learning/';
     $mDir = $tDir . $modelName;
 
     if (!is_dir($mDir)) {
-        //echo $tDir;
         echo "Folder does not exist.";
         exit;
     }
 
     if (deleteDirectory($mDir)) {
-        //successfully deleted
         return 1;
     } else {
         echo "Failed to delete model";
@@ -1215,17 +1170,13 @@ function deleteDirectory($dir) {
     return rmdir($dir);
 }
 
-//=================Recyclable Function===============
-//input validation
 function clean($data){
     $data = trim($data);
     $data = stripslashes($data);
-    //$data = htmlspecialchars($data);aaaaaaaa
     return $data;
 
  }
 
- //date formatting
 
  function formatDateTime($dateTime){
     $date = new DateTime($dateTime);
@@ -1237,7 +1188,6 @@ function clean($data){
     ];
 }
 
-//Check if disease already existed
 
 function diseaseExists($diseaseName, $con){
     $check = mysqli_prepare($con, "select * from tbldisease where diseaseName = ?");

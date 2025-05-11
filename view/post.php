@@ -12,7 +12,6 @@ user_session();
     <title>Phytosense</title>
 </head>
 <body>
-    <!--madami redundant tag sa header. srry XD-->
     <header>
         <div class="sticky" id="sidebar">
             <div class="brnd-container">
@@ -65,7 +64,6 @@ user_session();
                             <i class="fa-solid fa-upload"></i>
                         </label>
                         <p>Upload</p>
-                        <!--<input name="post_image" type="file" id="upload-image" hidden>-->
                         <input type="file" id="upload-image" name="images[]" accept="image/*" hidden multiple>
                         
                     </div>

@@ -1,14 +1,4 @@
-/*
 
-* Phytosense main module includes realtime scanning, which involves the use of certain algorithm / Tensorflow.js
-
-* Collects 1 frame
-
-* Analyzes frame -> Returns prediction
-
-
-
-*/
 
 
 let model_used = "";
@@ -37,36 +27,32 @@ const loaderWrapper = document.getElementById("loader-wrapper");
 const startButton = document.getElementById("startButton");
 const stopButton = document.getElementById("stopButton");
 
-// INITIALIZE model and metadata
 async function init() {
   try {
     const metadataResponse = await fetch(metadataPath);
     const metadata = await metadataResponse.json();
     classLabels = metadata.labels || [];
     responseMessage.textContent = "Model metadata loaded successfully.";
-    //console.log("Labels:", classLabels);
+    
   } catch (error) {
     console.error("Error loading metadata:", error);
     responseMessage.textContent = "Failed to load model metadata.";
   }
 }
 
-// START the webcam and prediction loop
 async function initWebcam() {
   try {
-    loaderWrapper.classList.remove("hide"); // Show loader
+    loaderWrapper.classList.remove("hide"); 
     stopCamera = false;
 
     startButton.style.cursor = "not-allowed";
     startButton.disabled = true;
 
-    // LOAD the model
     model = await tf.loadLayersModel(modelFolderPath);
     console.log("Model loaded successfully:", model);
 
-    // START the webcam
     const stream = await navigator.mediaDevices.getUserMedia({
-      //video: { width: 320, height: 300 },
+     
       video: { facingMode: "environment", width: 320, height: 300 },
     });
     camera.srcObject = stream;
@@ -74,16 +60,14 @@ async function initWebcam() {
     responseMessage.textContent = "Webcam started successfully.";
     loaderWrapper.classList.add("hide"); 
 
-    //START prediction functions
     startPredictions(); 
   } catch (error) {
     console.error("Error starting webcam:", error);
     responseMessage.textContent = "Failed to start webcam.";
-    loaderWrapper.classList.add("hide"); // Hide loader
+    loaderWrapper.classList.add("hide"); 
   }
 }
 
-// PREDICTION loop
 async function startPredictions() {
   if (stopCamera) return;
 
@@ -91,7 +75,6 @@ async function startPredictions() {
   setTimeout(startPredictions, 1000); 
 }
 
-// PREDICT the class from the webcam feed
 async function predict() {
   try {
     if (!camera.srcObject || camera.videoWidth === 0 || camera.videoHeight === 0) {
@@ -99,30 +82,25 @@ async function predict() {
       return;
     }
 
-    // PREPROCESS the video feed for prediction
     const predictionTensor = tf.tidy(() => {
       return tf.browser
         .fromPixels(camera)
         .resizeNearestNeighbor([224, 224]) 
         .toFloat()
         .div(127.5)
-        .sub(1) // NORMALIZE to range [-1, 1]
+        .sub(1) 
         .expandDims();
     });
 
-    // PERFORM the prediction
     const predictions = await model.predict(predictionTensor).data();
-    predictionTensor.dispose(); // Dispose tensor to prevent memory leaks
+    predictionTensor.dispose(); 
 
-    // FIND the class with the highest probability
     const maxConfidence = Math.max(...predictions);
     const maxIndex = predictions.indexOf(maxConfidence);
 
-    // ASSIGN the label and confidence
     disease_name = classLabels[maxIndex] || "Unknown";
     percentage = (maxConfidence * 100).toFixed(2);
 
-    // DISPLAY the prediction
     if (maxConfidence < 0.5) {
       labelContainer.innerHTML = `<span style='color:orange;'>Prediction unclear</span>`;
       resetTimer();
@@ -132,7 +110,6 @@ async function predict() {
       }else{
         labelContainer.innerHTML = `Prediction: <b>${disease_name}</b> ${percentage}%`;
       }
-      //labelContainer.innerHTML = `Prediction: <b>${disease_name}</b> ${percentage}%`;
 
       if (disease_name === "Others" || disease_name === "Healthy") {
         resetTimer();
@@ -154,7 +131,7 @@ async function predict() {
       $("#disease-name")
         .off("click")
         .on("click", function () {
-          resetTimer(); // Stop automatic AJAX call
+          resetTimer(); 
           callAjax();
         });
     }
@@ -173,7 +150,6 @@ function resetTimer() {
   previousPrediction = "";
 }
 
-// AJAX call to send prediction to the server
 function callAjax() {
   $.ajax({
     method: "POST",
@@ -207,7 +183,6 @@ function callAjax() {
   });
 }
 
-// STOP the webcam
 function stopWebcam() {
   stopCamera = true;
   if (camera.srcObject) {
@@ -222,7 +197,6 @@ function stopWebcam() {
   }
 }
 
-// MODEL used
 function fetchModelUsed() {
   try {
     $.ajax({
@@ -234,8 +208,6 @@ function fetchModelUsed() {
         modelFolderPath = `../../machine-learning/${model_used}/model.json`;
         metadataPath = `../../machine-learning/${model_used}/metadata.json`;
 
-        //console.log("Model folder path:", modelFolderPath);
-        //console.log("Metadata path:", metadataPath);
 
         init(); 
       },
@@ -248,10 +220,8 @@ function fetchModelUsed() {
   }
 }
 
-// INITIALIZE the app on page load
 window.onload = fetchModelUsed;
 
-// EVENT Listeners
 startButton.addEventListener("click", () => initWebcam(modelFolderPath));
 stopButton.addEventListener("click", stopWebcam);
 

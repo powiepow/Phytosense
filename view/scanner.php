@@ -74,11 +74,9 @@ user_session();
     </style>
 </head>
 <body>
-    <!-- Loader element -->
     <div id="loader-wrapper" class="loader-wrapper hide">
         <div class="loader"></div>
     </div>
-    <!--madami redundant tag sa header. srry XD-->
     <header>
         <div class="sticky" id="sidebar">
             <div class="brnd-container">
@@ -125,11 +123,8 @@ user_session();
                 </div>
                 <div class="sc-lower">
                     <b>Diagnosis Result:</b>
-                    <!--Label Container-->
                     <div id="label-container"></div>
                     <br>
-                    <!--<p style="max-width:300px; text-align:justify;margin-bottom:10px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, incidunt asperiores repellat rem reiciendis quo veniam eos autem explicabo eligendi quos velit consectetur 
-                        possimus ad quam animi. Modi, ipsam qui?</p>-->
                     <br>
                     <a href="#" id="disease-name" >View Details >></a>
                     

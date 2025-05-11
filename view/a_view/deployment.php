@@ -40,7 +40,6 @@ $con = $db->conn;
     <main class="main-parent-container">
         <?php 
             include __DIR__ . "../../includes/sidebar.php";
-            //include "../../includes/sidebar.php";
         ?>
         <section class="main-content">
             <div class="top_nav">
@@ -75,7 +74,7 @@ $con = $db->conn;
                             </select>
                             <button id="loadModel">Load Model</button>
                         </div>
-                        <p id="modelStatus"></p> <!-- status -->
+                        <p id="modelStatus"></p> 
 
                         <div class="table_container">
                             <table class="class_view">
@@ -85,7 +84,6 @@ $con = $db->conn;
                                     </tr>
                                 </thead>
                                 <tbody id="classList">
-                                    <!-- class names -->
                                 </tbody>
                             </table>
                         </div>
@@ -119,7 +117,6 @@ $con = $db->conn;
                                     </tr>
                                 </thead>
                                 <tbody id="prediction_table">
-                                    <!-- Predictions will be dynamically added here -->
                                 </tbody>
                             </table>
                         </div>
@@ -133,7 +130,6 @@ $con = $db->conn;
                             </label>
                             <input type="file" hidden id="upload_image">
                             <div class="upload_preview">
-                                <!--<img src="../assets/images/1.png" class="image_preview" alt="">-->
                             </div>
                         </div>
 
@@ -145,8 +141,7 @@ $con = $db->conn;
                                         <th>Percentage</th>
                                     </tr>
                                 </thead>
-                                <tbody id="upload_prediction_results"> <!-- Unique ID for this tbody -->
-                                    <!-- Results will be dynamically inserted here -->
+                                <tbody id="upload_prediction_results"> 
                                 </tbody>
                             </table>
                         </div>
@@ -164,7 +159,6 @@ $con = $db->conn;
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script src="../../assets/ai/deployment.js"></script>
     <script src="../../assets/js/style_2.js"></script>
-    <!--<script src="../../assets/ai/upload_predict.js"></script>-->
 
 </body>
 </html>

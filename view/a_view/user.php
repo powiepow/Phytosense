@@ -32,7 +32,7 @@ admin_session();
     <?php 
         include __DIR__ . "../../includes/sidebar.php";
 
-        //include "../../includes/sidebar.php";?>
+        ?>
         <section class="main-content">
             <div class="users">
                 <div class="u-upper">

@@ -14,7 +14,6 @@ const predictionLabel = document.getElementById("predictionLabel");
 const predictionConfidence = document.getElementById("predictionConfidence");
 const predictionDelay = 1000; 
 
-// load model 
 async function loadModelAndLabels() {
     const selectedModel = modelSelect.value;
 
@@ -31,7 +30,6 @@ async function loadModelAndLabels() {
         model = await tf.loadLayersModel(modelPathIndexedDB);
         console.log(`Model '${selectedModel}' loaded from IndexedDB.`);
 
-        // load labels 
         const metadataResponse = await fetch(`indexeddb://retrained-model/metadata.json`)
             .then(response => response.json())
             .catch(() => null);
@@ -67,7 +65,6 @@ async function loadModelAndLabels() {
     return model;
 }
 
-// start camera
 async function startCamera() {
     try {
         videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -81,7 +78,6 @@ async function startCamera() {
     }
 }
 
-// stop camera
 function stopCamera() {
     if (videoStream) {
         videoStream.getTracks().forEach(track => track.stop());
@@ -119,7 +115,7 @@ async function makePrediction() {
             .div(127.5)
             .sub(1)
             .expandDims();
-        // then mag predict
+
         return model.predict(tensor);
     });
 

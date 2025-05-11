@@ -24,7 +24,6 @@ if(isset($_GET['pe'])){
     <title>Phytosense</title>
 </head>
 <body>
-    <!--madami redundant tag sa header. srry XD-->
     <header>
         <div class="sticky" id="sidebar">
             <div class="brnd-container">
@@ -105,7 +104,6 @@ if(isset($_GET['pe'])){
                         </label>
                         <p>Upload</p>
                         <input type="file" id="upload-image" name="post_image[]" accept="image/*" hidden multiple>
-                        <!--<input accept="image/*" name="post_image" type="file" id="upload-image" hidden>-->
                     </div>
                     <div class="up-details">
                         <b>Ask the community</b>

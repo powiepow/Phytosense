@@ -1,6 +1,4 @@
-//signin admin
 
-//Sign in
 function ad_signin(){
     $('#signinForm').on('submit', function(event) {
         event.preventDefault(); 
@@ -9,11 +7,10 @@ function ad_signin(){
         var username = $('#username').val();
         var password = $('#password').val();
 
-        // Encrypt the form data
+   
         var encryptedUsername = encryptData(username, nsk);
         var encryptedPassword = encryptData(password, nsk);
 
-        // Create data object with encrypted values
         var data = {
             username: encryptedUsername,
             password: encryptedPassword,
@@ -41,11 +38,9 @@ function ad_b_signin(){
         var username = $('#username').val();
         var password = $('#password').val();
 
-        // Encrypt the form data
         var encryptedUsername = encryptData(username, nsk);
         var encryptedPassword = encryptData(password, nsk);
 
-        // Create data object with encrypted values
         var data = {
             username: encryptedUsername,
             password: encryptedPassword,
@@ -66,7 +61,7 @@ function ad_b_signin(){
 }
 
 function encryptData(plaintext, secretKey) {
-    // Convert the secret key to a CryptoJS format
+
     var key = CryptoJS.enc.Hex.parse(secretKey);
     var iv = CryptoJS.lib.WordArray.random(16);
 
@@ -85,8 +80,6 @@ function encryptData(plaintext, secretKey) {
 
 
 
-
-//=================USERS
 
 function showUsers(){
     
@@ -132,7 +125,6 @@ function sendDisplayRequest(data, type) {
     });
 }
 
-//===================MANAGE USERS
 
 function m_user(type, event){
     event.preventDefault();
@@ -225,8 +217,6 @@ function m_user(type, event){
 
 
 
-//=============User profile page post
-
 
 function show_user_post(userId){
     $(document).ready(function(){
@@ -252,7 +242,6 @@ function show_user_post(userId){
     });
 }
 
-//delete post
 
 function delete_post(postId){
     swal({
@@ -292,7 +281,6 @@ function delete_post(postId){
 
 
 
-//History
 function show_user_histories(userId){
     $(document).ready(function(){
         $.ajax({
@@ -318,7 +306,6 @@ function show_user_histories(userId){
 }
 
 
-//------------delete history/-------user profile admin
 function delete_history(historyId){
     swal({
         icon: "warning",
@@ -359,7 +346,6 @@ function delete_history(historyId){
 
 
 
-//flagged post
 function show_user_flagged(userId){
     $(document).ready(function(){
         $.ajax({
@@ -420,7 +406,6 @@ function delete_flagged(reportId){
 }
 
 
-//===================Show user feed
 
 function displayUserPosts(){
     $(document).ready(function(){
@@ -446,7 +431,6 @@ function displayUserPosts(){
     })
 }
 displayUserPosts();
-//====delete user post
 
 function deleteUserPost(postId){
     var pid = postId;
@@ -483,9 +467,7 @@ function deleteUserPost(postId){
         }
     });
 }
-//=========Post view
 
-//others view
 
 function viewOthers(){
     $.ajax({
@@ -499,7 +481,6 @@ function viewOthers(){
 }
 viewOthers();
 
-//===================PLANT DISEASE
 
 function pdManage(type){
     $("#pd-form").on('submit', function(event){
@@ -587,7 +568,6 @@ function pdManage(type){
 
 
 
-//=======================Chart
 
 function analyticBarChart(){
     var ctx = document.getElementById('myBarChart').getContext('2d');
@@ -629,9 +609,9 @@ function analyticBarChart(){
         });
 
         function updateChart(crops, predictions) {
-            myBarChart.data.labels = crops; // Update labels (crop names)
-            myBarChart.data.datasets[0].data = predictions; // Update data (prediction likelihoods)
-            myBarChart.update(); // Redraw chart with new data
+            myBarChart.data.labels = crops; 
+            myBarChart.data.datasets[0].data = predictions; 
+            myBarChart.update(); 
         }
 
     $.ajax({
@@ -649,7 +629,6 @@ function analyticBarChart(){
 }
 
 
-//==============
 
 function showUserType(){
     $(document).ready(function(){
@@ -675,7 +654,6 @@ function showUserType(){
     });
 }
 
-//==============Reported Post
 
 function reportedPost(){
     $(document).ready(function(){
@@ -701,13 +679,7 @@ function reportedPost(){
     });
 }
 
-//=====================Flag User
 
-
-//show
-
-
-//search
 
 function searchFlaggedUsers(){
 
@@ -724,7 +696,6 @@ function searchFlaggedUsers(){
     });
 }
 
-//filter
 function flaggedUsers(){
     $(document).ready(function(){
         $.ajax({
@@ -749,7 +720,6 @@ function flaggedUsers(){
     });
 }
 
-//disable posting sa user
 
 
 function flag_user(userId){
@@ -793,7 +763,6 @@ function flag_user(userId){
 
 
 
-//remove flag
 
 function clearFlag(userId){
     swal({

@@ -14,7 +14,6 @@ if(isset($_POST['email'])){
     
     $token = bin2hex(random_bytes(16));
 
-    //$token_hash = hash("sha256", $token);
 
     $expiry = date("Y-m-d H:i:s", time() + 60*30);
 
@@ -37,10 +36,6 @@ if(isset($_POST['email'])){
         to reset your password.";
 
 
-        /*
-        Click <a href="https://phytosense.site/reset_code?token=$token">here</a> 
-        to reset your password.
-        */
         try{
             $mail->send();
         }catch(Exception $e){
@@ -78,8 +73,6 @@ if(isset($_POST['reset_code'])) {
             echo "<script>alert('Error changing password. Please try again.'); window.location.href='/reset-password'</script>";
         }
     } else {
-        // Invalid reset code
-        //echo "<script>window.location.href='/signin'</script>";
     }
 }
 ?>

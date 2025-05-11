@@ -15,7 +15,6 @@ $con = $db->conn;
     <title>Phytosense</title>
 </head>
 <body>
-    <!--madami redundant tag sa header. srry XD-->
     <header>
         <div class="sticky" id="sidebar">
             <div class="brnd-container">

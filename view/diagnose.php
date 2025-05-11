@@ -13,10 +13,9 @@ user_session();
 </head>
 <style>
         #webcam-container, #label-container {
-            margin-top: 20px; /* Adds margin to the top of these elements */
+            margin-top: 20px; 
         }
         
-        /* Loader styles */
         .loader-wrapper {
             position: fixed;
             top: 0;
@@ -27,10 +26,9 @@ user_session();
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999; /* Ensure it's on top */
+            z-index: 9999; 
         }
 
-        /* HTML: <div class="loader"></div> */
         .loader {
           width: 90px;
           aspect-ratio: 1;
@@ -76,11 +74,9 @@ user_session();
         }
     </style>
 <body>
-    <!-- Loader element -->
     <div id="loader-wrapper" class="loader-wrapper hide">
         <div class="loader"></div>
     </div>
-    <!--madami redundant tag sa header. srry XD-->
     <header>
         <div class="sticky" id="sidebar">
             <div class="brnd-container">

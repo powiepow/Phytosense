@@ -18,7 +18,6 @@ $user = new User($userId, $con);
     <title>Phytosense</title>
 </head>
 <body>
-    <!--madami redundant tag sa header. srry XD-->
     <header>
         <div class="sticky" id="sidebar">
             <div class="brnd-container">
@@ -62,7 +61,6 @@ $user = new User($userId, $con);
 
 
 
-            <!--Profile-->
             <section class="profile__section user__profile active__link" content id="profile">
                 <big><p><b>Hello,</b> <?php echo $user->getLname(); ?></p></big>
                 <form class="p__form" id="update_profile">
@@ -83,11 +81,7 @@ $user = new User($userId, $con);
                                 <p>Email</p>
                                 <input required name="email" value="<?php echo $user->getEmail(); ?>" type="text">
                             </label>
-                            <!--
-                            <label for="">
-                                <p>Username</p>
-                                <input type="text">
-                            </label>-->
+                            
                         </div>
                         <div class="p-right">
                             <label for="">
@@ -111,7 +105,6 @@ $user = new User($userId, $con);
 
 
 
-            <!--@History-->
             <section class="profile__section profile-history" content id="history">
                 <div class="h-search">
                     <span class="h-filter">
@@ -139,7 +132,6 @@ $user = new User($userId, $con);
                 
             </section>
 
-            <!--Profile posts-->
             <section class="profile__section profile-post" content id="post">
                 <div class="h-search">
                     <h2>Community Posts</h2>
@@ -182,40 +174,7 @@ $user = new User($userId, $con);
             </section>
             
         </div>
-        <!--<footer class="fter">
-            <img class="lbr" src="assets/images/12.png" alt="">
-            <div class="footer-container">
-                
-                <div class="fter-left">
-                    <div class="fter-title">
-                        <img src="assets/images/logo.png" alt="">
-                        <span>
-                            <h2>Phytosense</h2>
-                        <p>Crop Diagnostic Platform</p>
-                        </span>
-                    </div>
-                    <p class="fter-text">
-                        Phytosense is a website designed to empower farmers 
-                        with the tools to diagnose crop diseases and 
-                        implement effective prevention strategies. 
-                        
-                    </p>
-                    <div class="fter-logo-links">
-                        <img src="assets/images/15.png" alt="">
-                        <img src="assets/images/16.png" alt="">
-                        <img src="assets/images/17.png" alt="">
-                    </div>
-                </div>
-                <div class="fter-right">
-                    <b>Contact Us :</b>
-                    <br><br>
-                    <p><i class="fa-solid fa-city"></i> Zamboanga City, Philippines</p>
-                    <p><i class="fa-solid fa-phone"></i> 098787654321</p>
-                    <p><i class="fa-solid fa-envelope"></i> phytosense@gmail.com</p>
-                    <p><i class="fa-solid fa-globe"></i> www.phytosense.com</p>
-                </div>
-            </div>
-        </footer>-->
+       
     </main>
     
 </body>

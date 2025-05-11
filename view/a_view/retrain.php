@@ -56,7 +56,6 @@ $con = $db->conn;
     <main class="main-parent-container">
         <?php 
             include __DIR__ . "../../includes/sidebar.php";
-            //include "../../includes/sidebar.php";
         ?>
 
         <section class="main-content">
@@ -115,20 +114,7 @@ $con = $db->conn;
                 </section>
 
                 <section class="right_configuration">
-                    <!--<div class="testing">
-                        <span><h3>Preview</h3></span>
-                        <div class="details_container">
-                            <div class="camera_box">
-                                <video id="camera" width="250" height="250" autoplay></video>
-                            </div>
-                            <div class="result_box">
-                                <p>Prediction: <b id="predictionLabel">N/A</b></p>
-                                <p>Percentage: <b id="predictionConfidence">0%</b></p><br>
-                                <button id="startPreview">Start Preview</button>
-                                <button id="stopPreview">Stop</button>
-                            </div>
-                        </div>
-                    </div>-->
+                    
 
                     <div class="download_model">
                         <div class="step_two">
@@ -145,15 +131,12 @@ $con = $db->conn;
         </section>
     </main>
     <script src="../../assets/js/sweetalert.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>-->
     <script src="../../assets/ai/retrain.js" type="module"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!--<script src="../../assets/ai/test.js"></script>-->
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 
-    <!--Added-->
     <script src="../../assets/js/style_2.js"></script>
     
     <script src="../../assets/js/function2.js"></script>

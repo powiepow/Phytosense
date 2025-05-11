@@ -29,7 +29,6 @@ if(isset($_GET['post'])){
 </head>
 <body>
 <style>
-        /* fullscreen modal dito na*/
         .fullscreen-modal {
             display: none; 
             position: fixed; 
@@ -71,15 +70,10 @@ if(isset($_GET['post'])){
         }
 
     </style>
-    <!-- Fullscreen Modal!!!!!! -->
     <div id="fullscreenModal" class="fullscreen-modal" onclick="closeFullscreen()">
         <span class="close" onclick="closeFullscreen()">&times;</span>
         <img class="fullscreen-img" src="" alt="Full Image">
     </div>
-    <!--<div class="img-view">
-        <i>x</i>
-        <img src="../../assets/images/1.png" alt="" width="200px">
-    </div>-->
     <header >
         <div class="brnd-container">
             <div class="logo">
@@ -113,7 +107,7 @@ if(isset($_GET['post'])){
     <?php 
         include __DIR__ . "../../../includes/sidebar.php";
 
-        //include "../../includes/sidebar.php";?>
+       ?>
         <section class="main-content post-others">
             <div class="post_container_holder">
                 <div class="post-container view-post-container">
@@ -166,26 +160,12 @@ if(isset($_GET['post'])){
                     </div>
                     <div class="cm-additionals pst-addtionals">
                         <div class="cm-upvotes" id="up__vote">
-                            <!--<p>10 <i class="fa-regular fa-thumbs-up"></i></p>
-                            <p>2 <i class="fa-regular fa-thumbs-down"></i></p>-->
                         </div>
                         
                         <a href="" class="cm-answers ps-view"><p id="comment_count"></p></a>
                     </div>
                     <div style="width:100%;" class="pst-comment-container" id="comments__container">
-                        <!--<small><b>Comment/s</b></small>
-                        <div class="post-comments">
-                            <img src="../../../assets/images/me.png" alt="">
-                            <div class="cmnt-details">
-                                <b>Christopher Canada</b>
-                                <p>Hey everyone, has anyone else seen this weird spotting on their tomato leaves? They started out as small yellow dots, but now they're growing and turning brown.
-                                    pen_spark
-                                </p>
-                            </div>
-                            <div class="cmnt-date">
-                                
-                            </div>
-                        </div>-->
+                        
                     </div>
                     <form id="add__comment" class="post-comment" action="">
                         <textarea name="" id="comment__area"></textarea>
@@ -197,14 +177,7 @@ if(isset($_GET['post'])){
             <div class="other_post">
                 <h3>Others</h3>
                 <div class="other-container" id="otherContainer">
-                    <!--<div class="o_card">
-                        <img src="../../../assets/images/me.png" alt="">
-                        <div class="o_detail">
-                            <b>Christopher Canada</b><br>
-                            <small>March 19 2020</small>
-                        </div>
-                        <i class="fa-regular fa-eye"></i>
-                    </div>-->
+                  
                     
                     
                 </div>
@@ -232,7 +205,7 @@ if(isset($_GET['post'])){
         margin: 10,
         nav: true,
         dots: false,
-        navText: ['', ''], // Leave empty since we're using Font Awesome arrows
+        navText: ['', ''], 
         responsive: {
             0: {
                 items: 1
@@ -241,7 +214,6 @@ if(isset($_GET['post'])){
     });
 </script>
 <script>
-       // full screen
         function fullimageview(src) {
             document.querySelector('.fullscreen-img').src = src;
 

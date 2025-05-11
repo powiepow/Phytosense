@@ -19,10 +19,6 @@ $con = $db->conn;
     <title>Phytosense - Admin Panel</title>
 </head>
 <body>
-    <!--<div class="img-view">
-        <i>x</i>
-        <img src="../../assets/images/1.png" alt="" width="200px">
-    </div>-->
     <header >
         <div class="brnd-container">
             <div class="logo">
@@ -38,19 +34,13 @@ $con = $db->conn;
         .pd-btn{
             color: rgb(181, 211, 161);
         }
-        /*.main-content{
-            background: url(../../assets/images/stacked-steps-haikei.svg);
-            backdrop-filter: blur(223px);
-            background-repeat: no-repeat;
-            background-size: cover;
-            
-        }*/
+        
     </style>
     <main class="main-parent-container">
     <?php 
         include __DIR__ . "../../includes/sidebar.php";
 
-        //include "../../includes/sidebar.php";?>
+        ?>
         <section class="main-content">
             <form class="plant__disease" id="pd-form">
                 <div class="pd_upper">

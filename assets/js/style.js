@@ -1,6 +1,5 @@
 const obeserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-        //console.log(entry)
         if(entry.isIntersecting){
             entry.target.classList.add('show');
         }else{
@@ -15,7 +14,6 @@ hiddenElements.forEach((el) => obeserver.observe(el));
 hidden2.forEach((el) => obeserver.observe(el));
 
 
-//Active links where=> profile
   
 document.addEventListener('click', (event) => {
   const link = event.target.closest('[data-target]'); 
@@ -31,10 +29,6 @@ document.addEventListener('click', (event) => {
   }
 });
 
-//hotdog
-
-
-//postng na
 
 function settings() {
   const box = document.getElementById("post__settings");
@@ -42,12 +36,11 @@ function settings() {
   
 }
 
-//post upload image preview
 function image_upload_preview() {
   const image_prev = document.getElementById("upload-preview");
   const upload_tag = document.getElementById("upload-image");
   const upload_profile = document.getElementById("upload-profile");
-  let selectedImages = []; // Array to store selected images
+  let selectedImages = []; 
 
   if (upload_tag) {
       upload_tag.addEventListener('change', function() {
@@ -59,15 +52,15 @@ function image_upload_preview() {
                 title:"Maximum Upload",
                 text: "We're sorry, we only accept up to 3 images.",
               })
-              this.value = ''; // Clear the input if more than 3 files are selected
-              image_prev.innerHTML = '<i class="fa-solid fa-upload"></i>'; // Reset preview
+              this.value = ''; 
+              image_prev.innerHTML = '<i class="fa-solid fa-upload"></i>'; 
               return;
           }else{
             image_prev.innerHTML = '<i class="fa-solid fa-upload"></i>';
           }
 
-          selectedImages = Array.from(files); // Store the selected files in an array
-          image_prev.innerHTML = ''; // Clear previous previews
+          selectedImages = Array.from(files); 
+          image_prev.innerHTML = ''; 
 
           selectedImages.forEach((file) => {
               const reader = new FileReader();
@@ -75,11 +68,11 @@ function image_upload_preview() {
                   const imgElement = document.createElement('img');
                   imgElement.src = this.result;
                   imgElement.alt = 'Image Preview';
-                  imgElement.style.width = '150px'; // Adjust width if needed
+                  imgElement.style.width = '150px';
                   imgElement.style.margin = '5px';
-                  image_prev.appendChild(imgElement); // Add image to the preview container
+                  image_prev.appendChild(imgElement); 
               });
-              reader.readAsDataURL(file); // Read each image file as a data URL
+              reader.readAsDataURL(file); 
               
           });
       });
@@ -99,45 +92,7 @@ function image_upload_preview() {
   
 }
 
-/*function image_upload_preview(){
-  const image_prev = document.getElementById("upload-preview");
-  const upload_tag = document.getElementById("upload-image");
-  const upload_profile = document.getElementById("upload-profile");
-  let selectedImage;
-  if(upload_tag){
-    upload_tag.addEventListener('change', function() {
-      const file = this.files[0];
-      selectedImage = file;
-      console.log(selectedImage);
-      if (file) {
-          const reader = new FileReader();
-          reader.addEventListener('load', function() {
-              image_prev.innerHTML = `<img src="${this.result}" alt="Image Preview">`;
-          });
-          reader.readAsDataURL(file);
-      } else {
-          image_prev.innerHTML = '<i class="fa-solid fa-upload"></i>';
-      }
-     });
-  }else{
-    upload_profile.addEventListener('change', function(){
-      const profile = this.files[0];
-      selectedImage = profile;
-      if(profile){
-        const read = new FileReader();
-        read.addEventListener('load', function(){
-          image_prev.innerHTML = `<img class="pf-image" src="${this.result}" alt="Image Preview">`;
-        });
-        read.readAsDataURL(profile);
-      }
-    });
-  }
 
-  
-}*/
-
-
-// post check max character
 function max_character(){
 const charCount = document.getElementById('char-count');
 const desc = document.getElementById('desc-area');
